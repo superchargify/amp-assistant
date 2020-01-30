@@ -6,11 +6,10 @@
   "icons": {
     "16": "icons/16.png",
     "48": "icons/48.png",
-    "128": "icons/active.png"
+    "128": "icons/128.png"
   },
   "browser_action": {
-    "default_title": "Detect & open Superchargify AMP pages",
-    "default_icon": "icons/active.png"
+    "default_title": "Click to open Superchargify AMP page in a new tab"
   },
   "author": "Superchargify",
   "background": {
@@ -20,9 +19,7 @@
      "persistent": false
    },
   "permissions": [
-    "tabs",
-    "http://*/*",
-    "https://*/*"
+    "activeTab"
   ],
   "homepage_url": "https://github.com/superchargify/amp-assistant",
   "short_name": "AMP Assistant"
