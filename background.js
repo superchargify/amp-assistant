@@ -1,34 +1,15 @@
-/* global chrome, alert */
+/* global chrome */
 
-var selector = 'document.querySelector(\'link[rel="amphtml"]\')'
-
-function createAlert () {
-  alert('This page doesn\'t have a Superchargify AMP page')
-}
+var base = 'https://preview.superchargify.com/preview?url='
 
 function handleClick (tab) {
   var url = tab.url
 
-  if (url.indexOf('/a/sc/amp/') !== -1) {
-    chrome.tabs.create({ url: url.replace('/a/sc/amp', '') })
-    return
-  }
+  if (url.startsWith('https://preview.superchargify.com/')) return
+  if (url.startsWith('https://app.superchargify.com/')) return
+  if (url.startsWith('https://www.superchargify.com/')) return
 
-  chrome.tabs.executeScript(
-    {
-      code: selector + ' && ' + selector + '.href',
-      runAt: 'document_end'
-    },
-    function (values) {
-      var url = values && values[0]
-      if (!url) return createAlert()
-
-      var isSuperchargifyAMP = url.indexOf('/a/sc/amp/') !== -1
-      if (!isSuperchargifyAMP) return createAlert()
-
-      chrome.tabs.create({ url })
-    }
-  )
+  chrome.tabs.create({ url: base + encodeURIComponent(url) })
 }
 
 chrome.browserAction.onClicked.addListener(handleClick)
